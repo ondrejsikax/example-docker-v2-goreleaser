@@ -1,0 +1,4 @@
+FROM debian:13-slim
+ARG TARGETPLATFORM
+COPY $TARGETPLATFORM/example-docker-v2-goreleaser /usr/local/bin/example-docker-v2-goreleaser
+CMD ["example-docker-v2-goreleaser"]

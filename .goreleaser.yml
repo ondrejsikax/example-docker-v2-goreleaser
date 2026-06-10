@@ -1,0 +1,60 @@
+version: 2
+
+project_name: example-docker-v2-goreleaser
+
+before:
+  hooks:
+    - rm -rf ./dist
+    - go mod tidy
+    - git push
+    - git push --tags
+builds:
+  -
+    env:
+      - CGO_ENABLED=0
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      - -s
+      - -w
+      - -X main.Version=v{{.Version}}
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    binary: example-docker-v2-goreleaser
+
+archives:
+  - formats: [ "tar.gz" ]
+    name_template: "{{ .ProjectName }}_v{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: "{{ .ProjectName }}_checksums.txt"
+  algorithm: sha256
+
+dockers_v2:
+  - dockerfile: Dockerfile.goreleaser
+    ids:
+      - example-docker-v2-goreleaser
+    images:
+      - "ghcr.io/ondrejsikax/example-docker-v2-goreleaser"
+    tags:
+      - "{{ .Tag }}"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    labels:
+      "org.opencontainers.image.created": "{{.Date}}"
+      "org.opencontainers.image.title": "{{.ProjectName}}"
+      "org.opencontainers.image.revision": "{{.FullCommit}}"
+      "org.opencontainers.image.version": "{{.Version}}"
+      "org.opencontainers.image.source": "https://github.com/ondrejsikax/example-docker-v2-goreleaser"
+      "org.label-schema.schema-version": "1.0"
+      "org.label-schema.version": "{{.Version}}"
+      "org.label-schema.name": "{{.ProjectName}}"
+      "com.github.actions.name": "{{.ProjectName}}"
+      "repository": "https://github.com/ondrejsikax/example-docker-v2-goreleaser"
+      "maintainer": "Ondrej Sika <ondrej@sika.io>"
