@@ -46,15 +46,15 @@ dockers_v2:
     platforms:
       - linux/amd64
       - linux/arm64
-    build_flag_templates:
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.title={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--label=org.opencontainers.image.source=https://github.com/ondrejsikax/example-docker-v2-goreleaser"
-      - "--label=org.label-schema.schema-version=1.0"
-      - "--label=org.label-schema.version={{.Version}}"
-      - "--label=org.label-schema.name={{.ProjectName}}"
-      - "--label=com.github.actions.name={{.ProjectName}}"
-      - "--label=repository=https://github.com/ondrejsikax/example-docker-v2-goreleaser"
-      - "--label=maintainer=Ondrej Sika <ondrej@sika.io>"
+    labels:
+      org.opencontainers.image.created: "{{.Date}}"
+      org.opencontainers.image.title: "{{.ProjectName}}"
+      org.opencontainers.image.revision: "{{.FullCommit}}"
+      org.opencontainers.image.version: "{{.Version}}"
+      org.opencontainers.image.source: "https://github.com/ondrejsikax/example-docker-v2-goreleaser"
+      org.label-schema.schema-version: "1.0"
+      org.label-schema.version: "{{.Version}}"
+      org.label-schema.name: "{{.ProjectName}}"
+      com.github.actions.name: "{{.ProjectName}}"
+      repository: "https://github.com/ondrejsikax/example-docker-v2-goreleaser"
+      maintainer: "Ondrej Sika <ondrej@sika.io>"
