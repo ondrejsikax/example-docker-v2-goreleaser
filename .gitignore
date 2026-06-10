@@ -19,3 +19,7 @@
 *.local.txt
 *.local.md
 Makefile.local.mk
+
+# Go
+/example-docker-v2-goreleaser
+/dist
