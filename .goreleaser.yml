@@ -9,7 +9,7 @@ before:
     - git push
     - git push --tags
 builds:
-  -
+  - id: example-docker-v2-goreleaser
     env:
       - CGO_ENABLED=0
     mod_timestamp: "{{ .CommitTimestamp }}"
